@@ -8,42 +8,55 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import axios from 'axios';
 
 function App() {
 
   const [betsData, setBetsData] = useState([]);
 
   useEffect(() => {
-    io().on("bet", body => {
-
-      if (!("Notification" in window)) {
-        console.log("Browser does not support desktop notification");
-      } else {
-        Notification.requestPermission();
-      }
-
+    let socket = io();
+    socket.on("new bet", body => {
       if (body.isNew) {
-        let title = body.bet.group + ", " + body.bet.website + " " + body.bet.user;
-        let options = {
-          body: body.bet.sport + ", " + body.bet.description + ", " + body.bet.date_placed + ", " + body.bet.win_amount
-        };
-        new Notification(title, options);
+        getAllData();
+        notification(body);
       }
-
-      let bets = betsData.slice();
-
-      console.log("betsData==", betsData);
-
-      if (!bets.includes(body.bet)) {
-        console.log("bets=====", bets);
-        bets.push(body.bet);
-      }
-      
-      console.log("bets after pushed new bet========", bets);
-
-      setBetsData(bets);
     });
-  }, [betsData]);
+    getAllData();
+  }, []);
+
+  const notification = (new_data) => {
+    if (!("Notification" in window)) {
+      console.log("Browser does not support desktop notification");
+    } else {
+      Notification.requestPermission();
+    }
+
+    let title = new_data.bet.group + ", " + new_data.bet.website + " " + new_data.bet.user;
+    let options = {
+      body: new_data.bet.sport + ", " + new_data.bet.description + ", " + new_data.bet.date_placed + ", " + new_data.bet.win_amount
+    };
+
+    new Notification(title, options);
+  }
+
+  const getAllData = () => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:8080/api/bets',
+      headers: {},
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(response.data);
+        setBetsData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <TableContainer component={Paper}>

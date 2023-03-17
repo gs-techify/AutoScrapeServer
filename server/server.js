@@ -22,8 +22,10 @@ app.get("/", (req, res) => {
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 const io = socket(app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`)
+  console.log(`Server is running on port ${PORT}.`);
 }));
+
+app.get('/api/bets', betController.findAll);
 
 app.post('/api/bets', async (req, res) => {
   // Validate request
@@ -51,10 +53,10 @@ app.post('/api/bets', async (req, res) => {
   }
 
   if (!isExist) {
-    io.emit('bet', { bet: bet, isNew: true });
+    io.emit('new bet', { bet: bet, isNew: true });
     betController.create(bet, res);
   } else {
-    io.emit('bet', { bet: bet, isNew: false });
+    // io.emit('bet', { bet: bet, isNew: false });
     res.send({
       status: true,
       message: "The bet is already Exist!"

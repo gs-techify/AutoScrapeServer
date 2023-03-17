@@ -43,7 +43,7 @@ Bet.findById = (id, result) => {
 };
 
 Bet.getAll = (result) => {
-  let query = "SELECT `date_placed`, `sport`, `description`, `win_amount`, `group`, `website`, `user` FROM bets";
+  let query = "SELECT * FROM bets ORDER BY id DESC";
 
   sql.query(query, (err, res) => {
     if (err) {
