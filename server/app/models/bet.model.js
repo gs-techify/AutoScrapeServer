@@ -6,6 +6,7 @@ const Bet = function(newBet) {
   this.sport = newBet.sport;
   this.description = newBet.description;
   this.win_amount = newBet.win_amount;
+  this.group = newBet.group;
   this.website = newBet.website;
   this.user = newBet.user;
 };
@@ -42,7 +43,7 @@ Bet.findById = (id, result) => {
 };
 
 Bet.getAll = (result) => {
-  let query = "SELECT `date_placed`, `sport`, `description`, `win_amount`, `website`, `user` FROM bets";
+  let query = "SELECT `date_placed`, `sport`, `description`, `win_amount`, `group`, `website`, `user` FROM bets";
 
   sql.query(query, (err, res) => {
     if (err) {

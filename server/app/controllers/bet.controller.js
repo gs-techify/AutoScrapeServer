@@ -15,6 +15,7 @@ exports.checkDB = async (bet) => {
           elem.sport === bet.sport &&
           elem.description === bet.description &&
           elem.win_amount === bet.win_amount &&
+          elem.group === bet.group &&
           elem.website === bet.website &&
           elem.user === bet.user
         )

@@ -16,33 +16,34 @@ function App() {
   useEffect(() => {
     io().on("bet", body => {
 
-      console.log("betsData::", betsData);
-      console.log("body::", body);
-
-      let isExist = true;
-
-      if (betsData.length > 0) {
-        isExist = betsData.some(elem =>
-          elem.date_placed === body.bet.date_placed &&
-          elem.sport === body.bet.sport &&
-          elem.description === body.bet.description &&
-          elem.win_amount === body.bet.win_amount &&
-          elem.website === body.bet.website &&
-          elem.user === body.bet.user
-        );
+      if (!("Notification" in window)) {
+        console.log("Browser does not support desktop notification");
       } else {
-        isExist = false;
+        Notification.requestPermission();
       }
 
-      console.log("isExist::", isExist);
+      if (body.isNew) {
+        let title = body.bet.group + ", " + body.bet.website + " " + body.bet.user;
+        let options = {
+          body: body.bet.sport + ", " + body.bet.description + ", " + body.bet.date_placed + ", " + body.bet.win_amount
+        };
+        new Notification(title, options);
+      }
 
-      if (!isExist) {
-        let bets = betsData.slice();
+      let bets = betsData.slice();
+
+      console.log("betsData==", betsData);
+
+      if (!bets.includes(body.bet)) {
+        console.log("bets=====", bets);
         bets.push(body.bet);
-        setBetsData(bets);
       }
+      
+      console.log("bets after pushed new bet========", bets);
+
+      setBetsData(bets);
     });
-  }, []);
+  }, [betsData]);
 
   return (
     <TableContainer component={Paper}>

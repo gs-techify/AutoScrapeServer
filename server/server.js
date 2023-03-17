@@ -38,13 +38,14 @@ app.post('/api/bets', async (req, res) => {
     sport: req.body.sport,
     description: req.body.description,
     win_amount: req.body.win_amount,
+    group: req.body.group,
     website: req.body.website,
     user: req.body.user
   };
 
   let isExist = false;
   try {
-    isExist = await betController.checkDB(bet)
+    isExist = await betController.checkDB(bet);
   } catch (error) {
     console.log(error)
   }
