@@ -50,14 +50,13 @@ app.post('/api/bets', async (req, res) => {
   }
 
   if (!isExist) {
-    io.emit('bet', { data: bet, isNew: true });
+    io.emit('bet', { bet: bet, isNew: true });
     betController.create(bet, res);
   } else {
-    io.emit('bet', { data: bet, isNew: false });
+    io.emit('bet', { bet: bet, isNew: false });
     res.send({
       status: true,
-      message: "The bet is already Exist."
+      message: "The bet is already Exist!"
     });
   }
 });
-  
