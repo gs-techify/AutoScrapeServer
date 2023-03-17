@@ -1,8 +1,7 @@
 const Bet = require("../models/bet.model.js")
-const moment = require('moment')
 
 // Check if a new bet is already exist in DB.
-const checkDB = async (bet) => {
+exports.checkDB = async (bet) => {
   return new Promise((resolve) => {
     Bet.getAll((err, data) => {
       if (err)
@@ -26,50 +25,21 @@ const checkDB = async (bet) => {
 };
 
 // Create and Save a new Bet
-exports.create = async (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
+exports.create = async (new_bet, res) => {
 
-  const new_bet = {
-    date_placed: moment(new Date(req.body.date_placed)).format(),
-    sport: req.body.sport,
-    description: req.body.description,
-    win_amount: req.body.win_amount,
-    website: req.body.website,
-    user: req.body.user
-  };
+  // Create a Bet
+  const bet = new Bet(new_bet);
 
-  let isExist = false;
-  try {
-    isExist = await checkDB(new_bet)
-  } catch (error) {
-    console.log(error)
-  }
-
-  if (!isExist) {
-    // Create a Bet
-    const bet = new Bet(new_bet);
-
-    // Save Bet in the database
-    Bet.create(bet, (err, data) => {
-      if (err)
-        res.status(500).send({
-          status: false,
-          message:
-            err.message || "Some error occurred while creating the Bet."
-        });
-      else res.status(201).send({ status: true });
-    });
-  } else {
-    res.status(201).send({
-      status: true,
-      message: "The bet is already Exist."
-    });
-  }
+  // Save Bet in the database
+  Bet.create(bet, (err, data) => {
+    if (err)
+      res.status(500).send({
+        status: false,
+        message:
+          err.message || "Some error occurred while creating the Bet."
+      });
+    else res.send({ status: true });
+  });
 };
 
 // Retrieve all Bets from the database (with condition).

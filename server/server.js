@@ -1,0 +1,63 @@
+const express = require("express");
+const socket = require('socket.io');
+const cors = require("cors");
+const moment = require('moment');
+const betController = require("./app/controllers/bet.controller.js");
+
+const app = express();
+
+app.use(cors());
+
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome!" });
+});
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+const io = socket(app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`)
+}));
+
+app.post('/api/bets', async (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  const bet = {
+    date_placed: moment(new Date(req.body.date_placed)).format(),
+    sport: req.body.sport,
+    description: req.body.description,
+    win_amount: req.body.win_amount,
+    website: req.body.website,
+    user: req.body.user
+  };
+
+  let isExist = false;
+  try {
+    isExist = await betController.checkDB(bet)
+  } catch (error) {
+    console.log(error)
+  }
+
+  if (!isExist) {
+    io.emit('bet', { data: bet, isNew: true });
+    betController.create(bet, res);
+  } else {
+    io.emit('bet', { data: bet, isNew: false });
+    res.send({
+      status: true,
+      message: "The bet is already Exist."
+    });
+  }
+});
+  
