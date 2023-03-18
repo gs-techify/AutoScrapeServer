@@ -44,7 +44,7 @@ function App() {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8080/api/bets',
+      url: 'http://localhost:4000/api/bets',
       headers: {},
     };
 
