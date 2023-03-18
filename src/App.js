@@ -11,12 +11,13 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 
 function App() {
-
+  
   const [betsData, setBetsData] = useState([]);
-
+  
   useEffect(() => {
-    let socket = io();
+    const socket = io();
     socket.on("new bet", body => {
+      console.log("------------new bet-----------------");
       if (body.isNew) {
         getAllData();
         notification(body);
