@@ -42,6 +42,7 @@ function App() {
   }
 
   const getAllData = () => {
+    console.log("--------------getting all data-----------------");
     let config = {
       method: 'get',
       maxBodyLength: Infinity,

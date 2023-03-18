@@ -14,7 +14,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// require('./setupProxy.js');
+require('./setupProxy.js');
 
 // simple route
 app.get("/", (req, res) => {
