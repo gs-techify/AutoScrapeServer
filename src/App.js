@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const http = require('follow-redirects').http;
+// const http = require('follow-redirects').http;
 
 function App() {
   
@@ -44,37 +44,46 @@ function App() {
 
   const getAllData = () => {
     console.log("--------------getting all data-----------------");
+      fetch('http://178.238.228.102:4000/api/bets')
+      .then(response => response.json())
+      .then(data => {
+        console.log("data::", data);
+        setBetsData(data);
+      })
+      .catch(error => {
+        console.log("Error featching Data:", error);
+      })
 
-    let options = {
-      'method': 'GET',
-      'hostname': '178.238.228.102',
-      'port': 4000,
-      'path': '/api/bets',
-      'headers': {
-        'Content-Type': 'application/json'
-      },
-      'maxRedirects': 20
-    };
+    // let options = {
+    //   'method': 'GET',
+    //   'hostname': '178.238.228.102',
+    //   'port': 4000,
+    //   'path': '/api/bets',
+    //   'headers': {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   'maxRedirects': 20
+    // };
 
-    let req = http.request(options, function (res) {
-      var chunks = [];
+    // let req = http.request(options, function (res) {
+    //   var chunks = [];
     
-      res.on("data", function (chunk) {
-        chunks.push(chunk);
-      });
+    //   res.on("data", function (chunk) {
+    //     chunks.push(chunk);
+    //   });
     
-      res.on("end", function (chunk) {
-        var body = Buffer.concat(chunks);
-        console.log(JSON.parse(body.toString()));
-        setBetsData(JSON.parse(body.toString()));
-      });
+    //   res.on("end", function (chunk) {
+    //     var body = Buffer.concat(chunks);
+    //     console.log(JSON.parse(body.toString()));
+    //     setBetsData(JSON.parse(body.toString()));
+    //   });
     
-      res.on("error", function (error) {
-        console.error(error);
-      });
-    });
+    //   res.on("error", function (error) {
+    //     console.error(error);
+    //   });
+    // });
 
-    req.end();
+    // req.end();
   }
 
   return (
