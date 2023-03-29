@@ -44,15 +44,16 @@ function App() {
 
   const getAllData = () => {
     console.log("--------------getting all data-----------------");
-      fetch('http://178.238.228.102:4000/api/bets')
-      .then(response => response.json())
-      .then(data => {
-        console.log("data::", data);
-        setBetsData(data);
-      })
-      .catch(error => {
-        console.log("Error featching Data:", error);
-      })
+    // http://178.238.228.102:4000
+    fetch('/api/bets')
+    .then(response => response.json())
+    .then(data => {
+      console.log("data::", data);
+      setBetsData(data);
+    })
+    .catch(error => {
+      console.log("Error featching Data:", error);
+    })
 
     // let options = {
     //   'method': 'GET',
