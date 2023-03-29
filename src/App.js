@@ -8,7 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import axios from 'axios';
+
+const http = require('follow-redirects').http;
 
 function App() {
   
@@ -43,21 +44,37 @@ function App() {
 
   const getAllData = () => {
     console.log("--------------getting all data-----------------");
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://178.238.228.102:4000/api/bets',
-      headers: {},
+
+    let options = {
+      'method': 'GET',
+      'hostname': '178.238.228.102',
+      'port': 4000,
+      'path': '/api/bets',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'maxRedirects': 20
     };
 
-    axios.request(config)
-      .then((response) => {
-        console.log(response.data);
-        setBetsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
+    let req = http.request(options, function (res) {
+      var chunks = [];
+    
+      res.on("data", function (chunk) {
+        chunks.push(chunk);
       });
+    
+      res.on("end", function (chunk) {
+        var body = Buffer.concat(chunks);
+        console.log(JSON.parse(body.toString()));
+        setBetsData(JSON.parse(body.toString()));
+      });
+    
+      res.on("error", function (error) {
+        console.error(error);
+      });
+    });
+
+    req.end();
   }
 
   return (
