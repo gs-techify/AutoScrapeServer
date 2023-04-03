@@ -48,7 +48,7 @@ function App() {
       fetch('http://178.238.228.102:4000/api/today_bets')
       .then(response => response.json())
       .then(data => {
-        console.log("data::", data);
+        console.log("today's bets data::", data);
         setBetsData(data);
       })
       .catch(error => {
