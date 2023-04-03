@@ -1,4 +1,5 @@
-const Bet = require("../models/bet.model.js")
+const moment = require('moment-timezone');
+const Bet = require("../models/bet.model.js");
 
 // Check if a new bet is already exist in DB.
 exports.checkDB = async (bet) => {
@@ -11,7 +12,7 @@ exports.checkDB = async (bet) => {
         });
       else {
         let isExist = data.some(elem =>
-          elem.date_placed === bet.date_placed &&
+          moment(new Date(elem.date_placed)).format("YYYY-MM-DD HH:mm:ss") === bet.date_placed &&
           elem.sport === bet.sport &&
           elem.description === bet.description &&
           elem.win_amount === bet.win_amount &&
@@ -54,6 +55,18 @@ exports.findAll = (req, res) => {
     else res.send(data);
   });
 };
+
+// Retrieve today's all bets from the database (with condition).
+exports.findAllTodayBets = (req, res) => {
+  Bet.getAllTodayBets((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bets."
+      });
+    else res.send(data);
+  })
+}
 
 // Find a single Bet by Id
 exports.findOne = (req, res) => {

@@ -1,7 +1,7 @@
 const express = require("express");
 const socket = require('socket.io');
 const cors = require("cors");
-const moment = require('moment');
+const moment = require('moment-timezone');
 const betController = require("./app/controllers/bet.controller.js");
 
 const app = express();
@@ -27,7 +27,7 @@ const io = socket(app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 }));
 
-app.get('/api/bets', betController.findAll);
+app.get('/api/today_bets', betController.findAllTodayBets);
 
 app.post('/api/bets', async (req, res) => {
   // Validate request
@@ -38,7 +38,7 @@ app.post('/api/bets', async (req, res) => {
   }
 
   const bet = {
-    date_placed: moment(new Date(req.body.date_placed)).format(),
+    date_placed: moment(new Date(req.body.date_placed)).format("YYYY-MM-DD HH:mm:ss"),
     sport: req.body.sport,
     description: req.body.description,
     win_amount: req.body.win_amount,
