@@ -45,11 +45,11 @@ function App() {
     fetch('https://autorefresher.info/api/today_bets')
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          console.log("Today's bets data:", data.body);
-          setBetsData(data.body);
+        if (Array.isArray(data)) {
+          console.log("Today's bets data:", data);
+          setBetsData(data);
         } else {
-          console.error("Internal Server Error:", data.message);
+          console.error("Internal Server Error:", data);
         }
       })
       .catch(error => {

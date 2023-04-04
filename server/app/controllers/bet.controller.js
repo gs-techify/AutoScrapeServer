@@ -61,14 +61,10 @@ exports.findAllTodayBets = (req, res) => {
   Bet.getAllTodayBets((err, data) => {
     if (err)
       res.status(500).send({
-        success: false,
         message:
           err.message || "Some error occurred while retrieving bets."
       });
-    else res.status(200).send({
-      success: true,
-      body: data
-    });
+    else res.status(200).send(data);
   })
 }
 
