@@ -62,6 +62,7 @@ function App() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>ID</TableCell>
             <TableCell style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>DATA PLACED</TableCell>
             <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>SPORT</TableCell>
             <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>DESCRIPTION</TableCell>
@@ -73,6 +74,7 @@ function App() {
         <TableBody>
           {betsData && betsData.length > 0 && betsData.map((row, index) => (
             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} component="th" scope="row">{index+1}</TableCell>
               <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} component="th" scope="row">{moment(new Date(row.date_placed)).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
               <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.sport}</TableCell>
               <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.description}</TableCell>
