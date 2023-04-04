@@ -59,7 +59,8 @@ Bet.getAll = (result) => {
 
 Bet.getAllTodayBets = (result) => {
   let today = moment(new Date()).tz('America/New_York').format('YYYY-MM-DD');
-  let query = `SELECT * FROM bets WHERE date_placed >= '${today}' ORDER BY id DESC`;
+  // let query = `SELECT * FROM bets WHERE date_placed >= '${today}' ORDER BY id DESC`;
+  let query = `SELECT * FROM bets ORDER BY id DESC`;
 
   sql.query(query, (err, res) => {
     if (err) {
