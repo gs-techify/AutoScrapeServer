@@ -62,23 +62,23 @@ function App() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{ fontWeight: 'bold' }}>DATA PLACED</TableCell>
-            <TableCell align="right" style={{ fontWeight: 'bold' }}>SPORT</TableCell>
-            <TableCell align="right" style={{ fontWeight: 'bold' }}>DESCRIPTION</TableCell>
-            <TableCell align="right" style={{ fontWeight: 'bold' }}>WIN AMOUNT</TableCell>
-            <TableCell align="right" style={{ fontWeight: 'bold' }}>WEBSITE</TableCell>
-            <TableCell align="right" style={{ fontWeight: 'bold' }}>USER</TableCell>
+            <TableCell style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>DATA PLACED</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>SPORT</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>DESCRIPTION</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>WIN AMOUNT</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>WEBSITE</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>USER</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {betsData && betsData.length > 0 && betsData.map((row, index) => (
             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row">{moment(new Date(row.date_placed)).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
-              <TableCell align="right">{row.sport}</TableCell>
-              <TableCell align="right">{row.description}</TableCell>
-              <TableCell align="right">{row.win_amount}</TableCell>
-              <TableCell align="right">{row.website}</TableCell>
-              <TableCell align="right">{row.user}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} component="th" scope="row">{moment(new Date(row.date_placed)).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.sport}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.description}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.win_amount}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.website}</TableCell>
+              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.user}</TableCell>
             </TableRow>
           ))}
         </TableBody>
