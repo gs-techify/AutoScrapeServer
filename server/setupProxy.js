@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://178.238.228.102:4000',
+            target: 'https://autorefresher.info',
             changeOrigin: true,
         })
     );

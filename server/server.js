@@ -1,6 +1,8 @@
 const express = require("express");
 const socket = require('socket.io');
 const cors = require("cors");
+const path = require("path");
+const rootDir = process.cwd();
 const moment = require('moment-timezone');
 const betController = require("./app/controllers/bet.controller.js");
 
@@ -13,13 +15,9 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(rootDir, 'build')));
 
 require('./setupProxy.js');
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome!" });
-});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
@@ -64,4 +62,12 @@ app.post('/api/bets', async (req, res) => {
       message: "The bet is already Exist!"
     });
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(rootDir, 'build/index.html'), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
 });

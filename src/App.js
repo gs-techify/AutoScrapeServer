@@ -10,12 +10,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-// const http = require('follow-redirects').http;
-
 function App() {
-  
+
   const [betsData, setBetsData] = useState([]);
-  
+
   useEffect(() => {
     const socket = io();
     socket.on("new bet", body => {
@@ -44,15 +42,18 @@ function App() {
   }
 
   const getAllData = () => {
-    console.log("--------------getting today's bets data-----------------");
-      fetch('http://178.238.228.102:4000/api/today_bets')
+    fetch('https://autorefresher.info/api/today_bets')
       .then(response => response.json())
       .then(data => {
-        console.log("today's bets data::", data);
-        setBetsData(data);
+        if (data.success) {
+          console.log("Today's bets data:", data.body);
+          setBetsData(data.body);
+        } else {
+          console.error("Internal Server Error:", data.message);
+        }
       })
       .catch(error => {
-        console.log("Error featching Data:", error);
+        console.error("Error featching Data:", error);
       })
   }
 
@@ -70,7 +71,7 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {betsData.map((row, index) => (
+          {betsData && betsData.length > 0 && betsData.map((row, index) => (
             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">{moment(new Date(row.date_placed)).format("YYYY-MM-DD HH:mm:ss")}</TableCell>
               <TableCell align="right">{row.sport}</TableCell>

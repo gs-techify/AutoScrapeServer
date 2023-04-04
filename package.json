@@ -3,10 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "server/server.js",
-  "proxy": "http://178.238.228.102:4000/",
-  "allowedHosts": [
-    "127.0.0.1"
-  ],
+  "proxy": "https://autorefresher.info/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
