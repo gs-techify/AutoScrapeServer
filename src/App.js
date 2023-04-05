@@ -73,13 +73,50 @@ function App() {
         <TableBody>
           {betsData && betsData.length > 0 && betsData.map((row, index) => (
             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} component="th" scope="row">{index+1}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} component="th" scope="row">{row.date_placed.split(".")[0].replace("T", " ")}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.sport}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.description}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.win_amount}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.website}</TableCell>
-              <TableCell style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} align="right">{row.user}</TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                component="th" 
+                scope="row"
+              >
+                {index+1}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                component="th" 
+                scope="row"
+              >
+                {row.date_placed.split(".")[0].replace("T", " ")}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                align="right"
+              >
+                {row.sport}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px', textTransform: 'uppercase' }} 
+                align="right"
+              >
+                {row.description}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                align="right"
+              >
+                {row.win_amount}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                align="right"
+              >
+                {row.website}
+              </TableCell>
+              <TableCell 
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }} 
+                align="right"
+              >
+                {row.user}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
