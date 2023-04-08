@@ -12,7 +12,6 @@ exports.checkDB = async (bet) => {
         });
       else {
         let isExist = data.some(elem =>
-          moment(new Date(elem.date_placed)).format("YYYY-MM-DD HH:mm:ss") === bet.date_placed &&
           elem.sport === bet.sport &&
           elem.description === bet.description &&
           elem.win_amount === bet.win_amount &&

@@ -8,7 +8,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -61,7 +60,7 @@ function App() {
               item.sport.includes("Basketball")
             );
             setBetsData(resData);
-          } else if (optval == 2) {
+          } else if (optval === 2) {
             resData = resData.filter((item) => 
               item.sport.includes("MLB") || 
               item.sport.includes("Football")

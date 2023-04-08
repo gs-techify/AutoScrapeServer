@@ -35,8 +35,14 @@ app.post('/api/bets', async (req, res) => {
     });
   }
 
+  let datetime = moment(req.body.date_placed, "YYYY-MM-DD HH:mm:ss A").format('YYYY-MM-DD HH:mm:ss');
+
+  var cur_time = moment.tz(datetime, req.body.timezone);
+
+  var pacific_time = cur_time.tz('US/Pacific').format('YYYY-MM-DD HH:mm:ss');
+
   const bet = {
-    date_placed: moment(new Date(req.body.date_placed)).format("YYYY-MM-DD HH:mm:ss"),
+    date_placed: pacific_time,
     sport: req.body.sport,
     description: req.body.description,
     win_amount: req.body.win_amount,
