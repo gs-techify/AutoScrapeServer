@@ -35,7 +35,7 @@ app.post('/api/bets', async (req, res) => {
     });
   }
 
-  let datetime = moment(req.body.date_placed, "YYYY-MM-DD HH:mm:ss A").format('YYYY-MM-DD HH:mm:ss');
+  let datetime = moment(new Date(req.body.date_placed)).format('YYYY-MM-DD HH:mm:ss');
 
   var cur_time = moment.tz(datetime, req.body.timezone);
 
