@@ -112,6 +112,7 @@ function App() {
             <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>WIN AMOUNT</TableCell>
             <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>WEBSITE</TableCell>
             <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>USER</TableCell>
+            <TableCell align="right" style={{ fontSize: '0.8rem', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>GROUP</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -160,6 +161,12 @@ function App() {
                 align="right"
               >
                 {row.user}
+              </TableCell>
+              <TableCell
+                style={{ fontSize: '0.75rem', paddingTop: '3px', paddingBottom: '3px' }}
+                align="right"
+              >
+                {row.group}
               </TableCell>
             </TableRow>
           ))}
