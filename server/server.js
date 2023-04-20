@@ -27,7 +27,6 @@ const io = socket(app.listen(PORT, () => {
 }));
 
 app.post('/api/auth', (req, res) => {
-  console.log(req.body);
   let username = req.body.username;
   let password = req.body.password;
   let query = `SELECT * FROM login WHERE username='${username}' AND password='${password}'`
