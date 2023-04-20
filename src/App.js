@@ -98,7 +98,28 @@ function App() {
   }
 
   const login = () => {
-    setStatus(true);
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "username": username,
+        "password": password
+      }),
+      redirect: 'follow'
+    };
+    
+    fetch("https://autorefresher.info/api/auth", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if (result === "true") {
+          setStatus(true);
+        } else {
+          setStatus(false);
+        }
+      })
+      .catch(error => setStatus(false));
   }
 
   return (

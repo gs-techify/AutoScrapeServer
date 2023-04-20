@@ -5,6 +5,7 @@ const path = require("path");
 const rootDir = process.cwd();
 const moment = require('moment-timezone');
 const betController = require("./app/controllers/bet.controller.js");
+const sql = require('./app/models/db');
 
 const app = express();
 
@@ -24,6 +25,26 @@ const PORT = process.env.PORT || 4000;
 const io = socket(app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 }));
+
+app.post('/api/auth', (req, res) => {
+  console.log(req.body);
+  let username = req.body.username;
+  let password = req.body.password;
+  let query = `SELECT * FROM login WHERE username='${username}' AND password='${password}'`
+  
+  sql.query(query, (err, res1) => {
+    if (err) {
+      console.log("error: ", err);
+      res.send(false);
+    }
+
+    if (res1.length > 0) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  });
+});
 
 app.get('/api/today_bets', betController.findAllTodayBets);
 
